@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>jQuery Income Tax Calculator</title>
+    <title>Income Tax Calculator</title>
 
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -18,20 +18,22 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>body { font-family: Arial; } label#submit { background-color:teal } </style>
+    <style>
+        body { font-family: Arial; } 
+        label#submit { background-color:teal } 
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>jQuery Income Tax Calculator</h1>
+        <h1>Income Tax Calculator</h1>
         <form>
-            <label>Your Income :</label>
+            <label>Your Income : Rp</label>
             <input type="text" id="income" name="income" />
             <label id="submit">Submit</label>
             <br /><br />
-            <label>Your Income Tax is :</label>
+            <label>Your Income Tax is : Rp</label>
             <input type="text" id="tax" name="tax" readonly />
-
         </form>
     </div>
 
@@ -44,19 +46,21 @@
         $(document).ready(function () {
             $("#submit").click(function () {
                 var tax = 0;
+                var incomeRange = [50000000, 250000000, 500000000]
+                var taxRange = [5 / 100, 15 / 100, 25 / 100, 30 / 100]
                 var income = $("#income").val();
 
-                if (income > 0 && income <= 50000000) {
-                    tax = (income - 0) * 5 / 100;
+                if (income > 0 && income <= incomeRange[0]) {
+                    tax = (income - 0) * taxRange[0];
                 }
-                if (income > 50000000 && income <= 250000000) {
-                    tax = (50000000 * 5 / 100) + (income - 50000000) * 15 / 100;
+                if (income > incomeRange[0] && income <= incomeRange[1]) {
+                    tax = (incomeRange[0] * taxRange[0]) + (income - incomeRange[0]) * taxRange[1];
                 }
-                if (income > 250000000 && income <= 500000000) {
-                    tax = (50000000 * 5 / 100) + (250000000 * 15 / 100) + (income - 300000000) * 25 / 100;
+                if (income > incomeRange[1] && income <= incomeRange[2]) {
+                    tax = (incomeRange[0] * taxRange[0]) + (incomeRange[1] * taxRange[1]) + (income - (incomeRange[0] + incomeRange[1])) * taxRange[2];
                 }
-                if (income > 500000000) {
-                    tax = (50000000 * 5 / 100) + (200000000 * 15 / 100) + (250000000 * 25 / 100) + (income - 500000000) * 30 / 100;
+                if (income > incomeRange[2]) {
+                    tax = (incomeRange[0] * taxRange[0]) + ((incomeRange[1] - incomeRange[0]) * taxRange[1]) + (incomeRange[1] * taxRange[2]) + (income - (incomeRange[0] + (incomeRange[1] - incomeRange[0]) + incomeRange[1])) * taxRange[3];
                 }
                 $("#tax").val(tax);
             });
