@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>jQuery Income Tax Calculator</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>body { font-family: Arial; } label#submit { background-color:teal } </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>jQuery Income Tax Calculator</h1>
+        <form>
+            <label>Your Income :</label>
+            <input type="text" id="income" name="income" />
+            <label id="submit">Submit</label>
+            <br /><br />
+            <label>Your Income Tax is :</label>
+            <input type="text" id="tax" name="tax" readonly />
+
+        </form>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                var tax = 0;
+                var income = $("#income").val();
+
+                if (income > 0 && income <= 50000000) {
+                    tax = (income - 0) * 5 / 100;
+                }
+                if (income > 50000000 && income <= 250000000) {
+                    tax = (50000000 * 5 / 100) + (income - 50000000) * 15 / 100;
+                }
+                if (income > 250000000 && income <= 500000000) {
+                    tax = (50000000 * 5 / 100) + (250000000 * 15 / 100) + (income - 300000000) * 25 / 100;
+                }
+                if (income > 500000000) {
+                    tax = (50000000 * 5 / 100) + (200000000 * 15 / 100) + (250000000 * 25 / 100) + (income - 500000000) * 30 / 100;
+                }
+                $("#tax").val(tax);
+            });
+
+
+        });
+    </script>
+</body>
+
+</html>
